@@ -21,7 +21,7 @@ void perror_exit(const char *errstr)
 	exit(1);
 }
 
-void print_size(unsigned start, size_t size)
+void print_size(unsigned start, unsigned size)
 {
 	if (!size)
 		printf("- start: 0x%08x size: 0x%08x\n", start, size);

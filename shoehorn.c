@@ -38,6 +38,7 @@
 #include <ctype.h>
 #include <getopt.h>
 #include <errno.h>
+#include <stdint.h>
 
 #include "eth.h"
 #include "ioregs.h"
@@ -53,7 +54,7 @@
 static const char version[] 	= MAKE_VERSION(3.4);
 */
 
-static const char version[] = "shoehorn v3.4-phatbox";
+static const char version[] = "shoehorn v3.4-nyuu";
 
 #define SRAM_SIZE	0x800		/* 2kB of SRAM for loader.bin */
 #define START_CHAR	'<'
@@ -350,32 +351,32 @@ ping(void)
 struct param_struct {
     union {
 	struct {
-	    unsigned long page_size;		/*  0 */
-	    unsigned long nr_pages;		/*  4 */
-	    unsigned long ramdisk_size;		/*  8 */
-	    unsigned long flags;		/* 12 */
+	    uint32_t page_size;		/*  0 */
+	    uint32_t nr_pages;		/*  4 */
+	    uint32_t ramdisk_size;		/*  8 */
+	    uint32_t flags;		/* 12 */
 #define FLAG_READONLY	1
 #define FLAG_RDLOAD	4
 #define FLAG_RDPROMPT	8
-	    unsigned long rootdev;		/* 16 */
-	    unsigned long video_num_cols;	/* 20 */
-	    unsigned long video_num_rows;	/* 24 */
-	    unsigned long video_x;		/* 28 */
-	    unsigned long video_y;		/* 32 */
-	    unsigned long memc_control_reg;	/* 36 */
-	    unsigned char sounddefault;		/* 40 */
-	    unsigned char adfsdrives;		/* 41 */
-	    unsigned char bytes_per_char_h;	/* 42 */
-	    unsigned char bytes_per_char_v;	/* 43 */
-	    unsigned long pages_in_bank[4];	/* 44 */
-	    unsigned long pages_in_vram;	/* 60 */
-	    unsigned long initrd_start;		/* 64 */
-	    unsigned long initrd_size;		/* 68 */
-	    unsigned long rd_start;		/* 72 */
-	    unsigned long system_rev;		/* 76 */
-	    unsigned long system_serial_low;	/* 80 */
-	    unsigned long system_serial_high;	/* 84 */
-	    unsigned long mem_fclk_21285;       /* 88 */ 
+	    uint32_t rootdev;		/* 16 */
+	    uint32_t video_num_cols;	/* 20 */
+	    uint32_t video_num_rows;	/* 24 */
+	    uint32_t video_x;		/* 28 */
+	    uint32_t video_y;		/* 32 */
+	    uint32_t memc_control_reg;	/* 36 */
+	    uint8_t sounddefault;		/* 40 */
+	    uint8_t adfsdrives;		/* 41 */
+	    uint8_t bytes_per_char_h;	/* 42 */
+	    uint8_t bytes_per_char_v;	/* 43 */
+	    uint32_t pages_in_bank[4];	/* 44 */
+	    uint32_t pages_in_vram;	/* 60 */
+	    uint32_t initrd_start;		/* 64 */
+	    uint32_t initrd_size;		/* 68 */
+	    uint32_t rd_start;		/* 72 */
+	    uint32_t system_rev;		/* 76 */
+	    uint32_t system_serial_low;	/* 80 */
+	    uint32_t system_serial_high;	/* 84 */
+	    uint32_t mem_fclk_21285;       /* 88 */ 
 	} s;
 	char unused[256];
     } u1;
