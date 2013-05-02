@@ -90,6 +90,7 @@ static int terminal = 0;
 struct option options[] = {
 	{ "anvil",	0, &hardware,	'a' },
 	{ "edb7211",	0, &hardware,	'e' },
+	{ "tracker",    0, &hardware,   't' },
 	{ "phatbox",	0, &hardware,	'p' },
 	{ "ethernet",	0, &ethernet,	1 },
 	{ "initrd",	1, 0,		'i' },
@@ -139,6 +140,7 @@ usage_and_exit(void)
 	       "Available options (defaults):\n"
 	       "        --anvil\n"
 	       "        --edb7211\n"
+		   "        --tracker\n"
 	       "        --phatbox\n"
 	       "        --ethernet\n"
 	       "        --initrd (%s)\n"
@@ -534,6 +536,53 @@ post_edb7211(void)
 
 
 void
+init_tracker(void)
+{
+	printf("- flushing cache/TLB\n");
+	put_char('4');
+
+	printf("- 73MHz core clock\n");
+	/* IO_SYSCON3 = (IO_SYSCON3 & ~CLKCTL) | CLKCTL_73 */
+	target_write_word(IO(SYSCON3),
+		(target_read_word(IO(SYSCON3)) & ~CLKCTL) | CLKCTL_73);
+
+#define SDCONF 0x2300
+#define SDRFPR 0x2340
+	printf("- SDRAM 64Mbit, CAS=2 W=16\n");
+	/* IO_DRFPR = 0x81 */
+	target_write_word(IO(SDCONF), 0x522);
+
+	//printf("- 64kHz DRAM refresh\n");	//Normally done but not effective
+	///* IO_DRFPR = 0x81 */				//as it can be
+	//target_write_word(IO(), 0x81);
+
+	printf("- Activate LED flasher\n");
+	/* IO_LEDFLSH = 0x40 */
+	target_write_byte(IO(LEDFLSH), 0x40);
+
+	printf("- Setting up flash at CS0, 16 Bit, 3 Waitstates\n");
+	target_write_word(IO(MEMCFG1),
+		(target_read_word(IO(MEMCFG1)) & 0xffff0000) | 0x00000015);
+
+	printf("Switching to 115200 baud\n");
+	/* IO_UBRLCR1 = IO_UBRLCR1 & ~BRDIV | BR_115200 */
+	target_write_word(IO(UBRLCR1),
+		(target_read_word(IO(UBRLCR1)) & ~BRDIV) | BR_115200);
+	serial_baud(B115200);
+}
+
+
+void
+post_tracker(void)
+{
+	printf("Switching back to 9600 baud\n");
+	/* IO_UBRLCR1 = IO_UBRLCR1 & ~BRDIV | BR9600 */
+	target_write_word(IO(UBRLCR1),
+		(target_read_word(IO(UBRLCR1)) & ~BRDIV) | BR_9600);
+	serial_baud(B9600);
+}
+
+void
 init_phatbox(void)
 {
 	
@@ -777,6 +826,11 @@ main(int argc, char **argv)
 	        printf("Initializing PhatBox (CLEP7312) hardware:\n");
 	        init_phatbox();
 	        break;
+	case 't':
+            arch_number = 0x5b;  // Cirrus Logic 7212/7312
+	        printf("Initializing tracker (CLEP7312) hardware:\n");
+	        init_tracker();
+	        break;
 	default:
 		printf("Internal error - invalid hardware value\n");
 		exit(1);
@@ -892,6 +946,9 @@ main(int argc, char **argv)
 		break;
 	case 'p':
 		post_phatbox();
+		break;	
+	case 't':
+		post_tracker();
 		break;
 	default:
 		fprintf(stderr, "%s: Internal error - invalid hardware value\n",
