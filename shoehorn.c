@@ -841,9 +841,10 @@ main(int argc, char **argv)
 			printf("%02X%c", remotemac[i], i==5 ? '\n' : ':');
 		}
 	}
-
-	printf("Initializing 8051\n");
-	init_8051();
+	if (hardware == 'p'){
+		printf("Initializing 8051\n");
+		init_8051();
+	}
 	printf("Detecting DRAM\n");
 	detect_dram();
 	
