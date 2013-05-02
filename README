@@ -1,0 +1,70 @@
+
+Bootstrap loader for EP7211
+===========================
+
+Copyright (c) 1999 Ben Williamson <benw@pobox.com>
+Copyright (c) 2000, 2001 Blue Mug, Inc.  All Rights Reserved.
+Copyright (C) 2000 Joon Suan Ong.
+Copyright (C) 2000 Guenther Leber <guenther@adcon.at>
+
+
+README for shoehorn-3:
+----------------------
+
+Ben Williamson is no longer working on his EP7211 port of Linux 2.2.1,
+or on the 'shoehorn' loader he used with it; this version is being
+released as 'shoehorn-3' to differentiate it from the older 'shoehorn-2'
+distribution.
+
+This version of shoehorn has been modified from the original to support
+the following:
+	-- Blue Mug's port of kernel 2.4.0 to the EP7211:
+	   -- Change kernel load address.
+	   -- Change load conventions (no more 'memory fragments').
+	   -- More complete usage of param block.
+	-- Hardware support for the EDB7211 evaluation board.
+	-- Registered ARM kernel architecture number for EDB7211.
+	-- Restore serial settings when interrupted.
+	-- More diagnostic serial output.
+	-- Integrated Joon Suan Ong's very cool patch for Ethernet
+	   download, with improved MAC address support by Guenther
+	   Leber.
+	-- Security fix and other cleanups by Guenther Leber.
+	-- RPM and Debian packaging.
+
+The 2.2.1 'calcaria.net' kernel with EP7211 patches is no longer
+supported; shoehorn-2 is the right choice for that kernel.
+
+Email Mike Touloumtzis <miket@bluemug.com> with questions, comments, or
+patches.
+
+README for shoehorn-2 (kernel boot log omitted):
+------------------------------------------------
+
+Latest version: <ftp://ftp.netwinder.org/users/b/benw/ep7211/>
+
+The 7111 and 7211 have internal SRAM and bootstrap ROM.  This package
+connects to the device in bootstrap mode over a serial connection, to load
+and boot a Linux kernel with ramdisk filesystem.  It's called shoehorn
+because I got sick of writing programs called bootstrap.
+
+The piece of code loaded into SRAM (loader.c) knows nothing about the
+target hardware, except that it's a 7111 or a 7211 in bootstrap mode.  All
+the board-specific initialisation is done by remote control, by the shoehorn
+program on the host.  The loader will detect 16 or 32 bit DRAM banks, and
+scan for available areas.
+
+At the moment, shoehorn only knows about AppForge's Anvil board.  If you
+have other 7111- or 7211- based hardware, you should be able to add support
+for it by making a few changes to shoehorn.c.  Ideally there would be a
+runtime command-line option to select your board, rather than lots of
+#ifdefs.  Send me your patches in whatever state, and I'll try to include
+them in the package.  Better yet, send me your hardware and I'll keep it
+warm for you.  :)
+
+Any and all success/failure reports, suggestions and complaints are welcome. 
+The best place to discuss this stuff at the moment is probably the
+linux-7110 mailing list, see <http://www.calcaria.net/> for more info.
+
+- Ben.
+

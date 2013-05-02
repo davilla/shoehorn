@@ -1,0 +1,11 @@
+Readme for this PhatBox version:
+
+I have NOT TESTED this, but hope it will work for you.  
+
+The only changes I made to this package were to add in intialization code
+specific to the PhatBox, based on the register settings made by the
+OEM PhatBox bootloader.
+
+Please let me know if you have any comments -- phatbox at bushing.mm.st
+
+-- Ben Byer, June 2005

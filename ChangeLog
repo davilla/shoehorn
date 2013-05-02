@@ -1,0 +1,60 @@
+2001-01-16  Mike Touloumtzis  <miket@bluemug.com>
+
+	* all: Release as version 3.3.
+
+	* shoehorn.c: switch to registered architecture number.
+
+	* serial.c: switch not-too-descriptive STEP to SERIAL_BLOCKSIZE,
+	reduce baud switch delay from 1 second to 50 ms.
+
+	* README: updated to reflect recent fixes.
+
+2000-11-14  Mike Touloumtzis  <miket@bluemug.com>
+
+	* all: added Debian package support; slightly simplified
+	compile-time loader path specification so that it doesn't require
+	backslash-escaped double quotes in the path variable.  Will
+	release as version 3.2.
+	
+	* Makefile: Renamed DEFS to EXTRAFLAGS; modified to support
+	any combination of command line/Makefile specification of CFLAGS
+	and EXTRAFLAGS.
+
+2000-10-19  Mike Touloumtzis  <miket@bluemug.com>
+
+	* all: applied Güenther Leber's patch, which contains several
+	fixes and improvements.  His changelog is as follows:
+
+	-- RPMised
+	-- added dropping of root privs if setuid root
+	-- set MAC for target's cs8900 if none yet set
+	-- added a couple of initializations for edb7211
+	-- wiped a couple of bugs (buffer sizes for files and alignment)
+
+2000-09-20  Jon McClintock  <jonm@bluemug.com>
+
+	* shoehorn.c: changes for release 3.1: relocate and resize ramdisk
+	to support larger ramdisks (currently up to 6.25 MB).
+
+2000-09-11  Mike Touloumtzis  <miket@bluemug.com>
+
+	* Makefile: fix stupid bug in my oh-so-clever only-sudo-if-needed
+	hack.
+	
+2000-09-02  Mike Touloumtzis  <miket@bluemug.com>
+
+	* all: changes for release 3.0, added copyright notices as
+	appropriate.  For older versions, see the README and/or the
+	shoehorn-2 tarball.
+
+	* eth.c: port of Joon Suan Ong's ethernet download.
+	
+	* shoehorn.c: change kernel load address, get rid of kernel-aware
+	memory fragmentation stuff for 2.2.1/calcaria.net port, more
+	complete param block uses, other tweaks for new kernel image
+	format.
+
+	* serial.c: broke serial stuff into its own file; use signal
+	handlers to restore serial port and tty to sane state when
+	exiting.
+
