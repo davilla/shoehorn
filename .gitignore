@@ -1,3 +1,7 @@
 *.d
 *.swp
 
+*.o
+shoehorn
+*.bin
+*.elf

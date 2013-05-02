@@ -32,7 +32,7 @@ _start:
 	cmp	r1, sp
 	blo	1b
 
-	bl	main			/* see loader.c */
+	bl	cmain			/* see loader.c */
 2:	b	2b
 
 

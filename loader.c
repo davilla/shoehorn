@@ -269,7 +269,7 @@ int init_8051(void)
 
 
 int
-main(void)
+cmain(void)
 {
 	void (*code)(int r0, int r1, int r2, int r3);
 
