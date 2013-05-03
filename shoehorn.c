@@ -385,8 +385,8 @@ struct param_struct {
     union {
 	char paths[8][128];
 	struct {
-	    unsigned long magic;
-	    char n[1024 - sizeof(unsigned long)];
+	    uint32_t magic;
+	    char n[1024 - sizeof(uint32_t)];
 	} s;
     } u2;
     char commandline[COMMAND_LINE_SIZE];
