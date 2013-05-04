@@ -69,11 +69,11 @@ static const char version[] = "shoehorn v3.4-nyuu";
 /* architecture numbers are defined by the ARM kernel */
 #define ARCH_NUMBER_EDB7211	50
 
-#define PARAM_OFFSET	0x00020000	/* immediately after video RAM */
-  #define PARAM_U1_OFFSET	0x00020000
-  #define PARAM_U2_OFFSET	0x00020100
-  #define PARAM_CMDLINE_OFFSET	0x00020500
-  #define PARAM_END		0x00020900
+#define PARAM_OFFSET	0x00000100	/* immediately after video RAM */
+  #define PARAM_U1_OFFSET	0x00000100
+  #define PARAM_U2_OFFSET	0x00000200
+  #define PARAM_CMDLINE_OFFSET	0x00000600
+  #define PARAM_END		0x00000A00
   #define PARAM_SIZE		(256 + 1024 + 1024)
 
 #define KERNEL_OFFSET	0x00038000	/* beginning of kernel image */
