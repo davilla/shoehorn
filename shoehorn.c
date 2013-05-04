@@ -560,9 +560,9 @@ init_tracker(void)
 	/* IO_LEDFLSH = 0x40 */
 	target_write_byte(IO(LEDFLSH), 0x40);
 
-	printf("- Setting up flash at CS0, 16 Bit, 3 Waitstates\n");
-	target_write_word(IO(MEMCFG1),
-		(target_read_word(IO(MEMCFG1)) & 0xffff0000) | 0x00000015);
+	//printf("- Setting up flash at CS0, 32 Bit, 3 Waitstates\n");
+	//target_write_word(IO(MEMCFG1),
+	//	(target_read_word(IO(MEMCFG1)) & 0xffff0000) | 0x00000001);
 
 	printf("Switching to 115200 baud\n");
 	/* IO_UBRLCR1 = IO_UBRLCR1 & ~BRDIV | BR_115200 */
