@@ -46,7 +46,7 @@ shoehorn: $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^
 
 loader.elf: init.S loader.c cs8900.h ep7211.h ioregs.h
-	$(CROSS)gcc -Wall -fomit-frame-pointer -Os -nostdlib \
+	$(CROSS)gcc -Wall -fomit-frame-pointer -Os -ggdb -nostdlib \
 		-Wl,-Ttext,0x10000000 -N init.S loader.c -o loader.elf
 
 %.bin: %.elf
