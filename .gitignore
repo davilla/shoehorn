@@ -5,3 +5,5 @@
 shoehorn
 *.bin
 *.elf
+__pycache__
+tags
