@@ -1,6 +1,7 @@
 import serial
 import struct
 import time
+import sys
 
 class epio(object):
     IO_ADDR=0x80000000
@@ -108,7 +109,7 @@ class epboot(object):
         self.setbaud(115200)
 
     def writefile(self,addr,filename):
-        chunksize=256
+        chunksize=0x1000
         fh=open(filename,'rb')
         fh.seek(0,2)
         filesize=fh.tell()
@@ -119,7 +120,9 @@ class epboot(object):
                 break
             self.writeblock(addr,c)
             addr=addr+len(c)
-            print('\r %d - %d' % (fh.tell(),filesize)),
+            print('\r 0x%08x - 0x%08x - %d%%' %
+                    (fh.tell(),filesize,int(fh.tell()*100/filesize))),
+            sys.stdout.flush()
         fh.close()
 
 
